@@ -2,13 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-color: #E6B9AE;
+  --text-color: white;
+}
+
 body {
-  background-color: #E6B9AE;
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 html, body, #__next {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
 }

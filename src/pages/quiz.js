@@ -57,19 +57,20 @@ const Quiz = () => {
         zIndex="0"
         dangerouslySetInnerHTML={{
           __html: `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" style="width: 100%; height: 100%;">
-              <path fill="#a3c9a8" fill-opacity="0.5" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,266.7C960,267,1056,245,1152,229.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-              <path fill="#97c1a9" fill-opacity="0.5" d="M0,256L48,261.3C96,267,192,277,288,261.3C384,245,480,203,576,197.3C672,192,768,224,864,245.3C960,267,1056,277,1152,266.7C1248,256,1344,224,1392,208L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-              <path fill="#8ab9aa" fill-opacity="0.5" d="M0,288L48,277.3C96,267,192,245,288,234.7C384,224,480,224,576,213.3C672,203,768,181,864,181.3C960,181,1056,203,1152,213.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <svg id="visual" viewBox="0 0 900 600" preserveAspectRatio="none" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+              <path d="M0 181L82 139L164 259L245 115L327 181L409 145L491 121L573 193L655 79L736 247L818 217L900 151L900 0L818 0L736 0L655 0L573 0L491 0L409 0L327 0L245 0L164 0L82 0L0 0Z" fill="#38a169"></path>
+              <path d="M0 313L82 289L164 349L245 313L327 319L409 271L491 295L573 343L655 265L736 433L818 337L900 355L900 149L818 215L736 245L655 77L573 191L491 119L409 143L327 179L245 113L164 257L82 137L0 179Z" fill="#2f855a"></path>
+              <path d="M0 415L82 379L164 445L245 421L327 427L409 391L491 391L573 475L655 373L736 481L818 427L900 427L900 353L818 335L736 431L655 263L573 341L491 293L409 269L327 317L245 311L164 347L82 287L0 311Z" fill="#276749"></path>
+              <path d="M0 517L82 505L164 499L245 535L327 511L409 529L491 547L573 553L655 505L736 559L818 547L900 523L900 425L818 425L736 479L655 371L573 473L491 389L409 389L327 425L245 419L164 443L82 377L0 413Z" fill="#1e4e3a"></path>
+              <path d="M0 601L82 601L164 601L245 601L327 601L409 601L491 601L573 601L655 601L736 601L818 601L900 601L900 521L818 545L736 557L655 503L573 551L491 545L409 527L327 509L245 533L164 497L82 503L0 515Z" fill="#15352b"></path>
             </svg>
           `,
         }}
       />
-
       <Container maxW="4xl" height="50vh" display="flex" flexDirection="column" position="relative" zIndex="1">
-        <Spacer minHeight="16vh" />
+        <Spacer minHeight="22vh" />
         <VStack spacing={12} align="flex">
-          <Heading as="h1" size="2xl" className="text-quaternary text-center">
+          <Heading as="h1" size="2xl" className="text-quaternary text-center" textAlign="center">
             AestheticAxis Quiz
           </Heading>
           <ProgressBar current={currentQuestion + 1} total={quizQuestions.length} />
