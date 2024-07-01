@@ -14,34 +14,48 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [scores, setScores] = useState({});
   const [sliderValue, setSliderValue] = useState(3);
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  const [mountainTops, setMountainTops] = useState([
-    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
-    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
-    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
-    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
-    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600]
-  ]);
+  const [mountainTops, setMountainTops] = useState([]);
+  const [isInitialAnimation, setIsInitialAnimation] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (isInitialRender) {
-      setTimeout(() => {
-        animateMountainTops();
-        setIsInitialRender(false);
-      }, 500);
-    }
-  }, [isInitialRender]);
+    setMountainTops([
+      [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+      [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+      [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+      [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+      [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600]
+    ]);
 
-  const animateMountainTops = () => {
-    const newTops = mountainTops.map((layer, layerIndex) =>
-      layer.map((_, index) => {
-        const minHeight = layerIndex * 100 + 50;
-        const maxHeight = minHeight + 100;
-        return Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
-      })
-    );
-    setMountainTops(newTops);
+    // Animate mountains after a short delay
+    setTimeout(() => {
+      animateMountainTops(true);
+    }, 500);
+  }, []);
+
+  const animateMountainTops = (isInitial = false) => {
+    const animateLayer = (layerIndex) => {
+      if (layerIndex >= 5) {
+        setIsInitialAnimation(false);
+        return; // All layers animated
+      }
+
+      setMountainTops(prevTops => 
+        prevTops.map((layer, index) => 
+          index === layerIndex ? layer.map((_, index) => {
+            const minHeight = layerIndex * 100 + 50;
+            const maxHeight = minHeight + 100;
+            const targetHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+            return 600 - (600 - targetHeight);
+          }) : layer
+        )
+      );
+
+      // Animate next layer after a delay (longer for initial animation)
+      setTimeout(() => animateLayer(layerIndex + 1), isInitial ? 500 : 50);
+    };
+
+    animateLayer(0); // Start with the first layer
   };
 
   const handleAnswer = (value) => {
@@ -56,7 +70,7 @@ const Quiz = () => {
   
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      animateMountainTops();
+      animateMountainTops(false);
     } else {
       router.push({
         pathname: '/results',
@@ -93,7 +107,7 @@ const Quiz = () => {
         className="bg-bg-primary min-h-screen relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: 1 }}
       >
         <Box
           position="absolute"
@@ -109,9 +123,13 @@ const Quiz = () => {
                 key={index}
                 d={generateSVGPath(layer)}
                 fill={colors[index]}
-                initial={false}
+                initial={{ d: generateSVGPath(new Array(12).fill(600)) }}
                 animate={{ d: generateSVGPath(layer) }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                transition={{ 
+                  duration: isInitialAnimation ? 1.5 : 0.5, 
+                  ease: "easeOut", 
+                  delay: isInitialAnimation ? index * 0.5 : 0 
+                }}
               />
             ))}
           </svg>
