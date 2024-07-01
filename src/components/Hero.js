@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text, Button, VStack, Container } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, VStack, Container, Highlight } from "@chakra-ui/react";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -7,10 +7,10 @@ const MotionBox = motion(Box);
 
 export default function Hero() {
   return (
-    <Box minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bgGradient="linear(to-b, green.500, green.700)">
+    <Box minHeight="90vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bgGradient="linear(to-b, green.500, green.700)">
       <Container centerContent>
-        <VStack spacing={8} zIndex={10}>
-        <Box width={200} height={200} position="relative">
+        <VStack spacing={4} zIndex={10}>
+          <Box width={200} height={200} position="relative">
             <img
               src="/images/aesthetic-axis-logo.png"
               alt="AestheticAxis Logo"
@@ -25,11 +25,16 @@ export default function Hero() {
               }}
             />
           </Box>
-          <Heading as="h1" size="4xl" color="white" fontWeight="extrabold" letterSpacing="tight">
+          <Heading as="h1" size="4xl" color="white" fontWeight="extrabold" letterSpacing="tight" lineHeight='tall'>
             AestheticAxis
           </Heading>
           <Text fontSize="xl" color="green.100" maxWidth="2xl" textAlign="center">
-            Discover your unique style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
+            <Highlight
+              query="unique"
+              styles={{ px: '2', py: '1', rounded: 'full', bg: 'blue.400', color: 'white' }}
+            >
+              Discover your unique style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
+            </Highlight>
           </Text>
           <Link href="/quiz" passHref>
             <Button

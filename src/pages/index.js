@@ -6,10 +6,6 @@ const Hero = dynamic(() => import('../components/Hero'), { ssr: false })
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>AestheticAxis</title>
-        <meta name="description" content="Find your unique aesthetic through our interactive quiz" />
-        <link rel="icon" href="/images/favicon.ico" />      </Head>
       <main>
         <Hero />
       </main>
