@@ -16,15 +16,16 @@ const Quiz = () => {
   const router = useRouter();
 
   const handleAnswer = (value) => {
-    console.log(value)
     setScores(prevScores => {
       const newScores = { ...prevScores };
       Object.entries(quizQuestions[currentQuestion].styles).forEach(([style, weight]) => {
-        newScores[style] = (newScores[style] || 0) + (value * weight);
+        // Always add a number, even if it's 0
+        const scoreToAdd = value === 3 ? 0 : (value - 3) * weight;
+        newScores[style] = (newScores[style] || 0) + scoreToAdd;
       });
       return newScores;
     });
-
+  
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
@@ -35,6 +36,8 @@ const Quiz = () => {
       });
     }
   };
+  
+  
 
   const handleSliderChange = (value) => {
     setSliderValue(value);

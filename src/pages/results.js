@@ -12,26 +12,37 @@ const Results = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (router.isReady) {
-      const scoresParam = router.query.scores;
-      if (scoresParam) {
-        const parsedScores = JSON.parse(scoresParam);
-        const sortedScores = Object.entries(parsedScores)
-          .sort(([,a],[,b]) => b-a)
-          .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-        
-        const total = Object.values(sortedScores).reduce((sum, score) => sum + score, 0);
+    if (router.query.scores) {
+      const parsedScores = JSON.parse(router.query.scores);
+      const sortedScores = Object.entries(parsedScores)
+        .sort(([,a],[,b]) => b-a)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+      
+      const total = Object.values(sortedScores).reduce((sum, score) => sum + Math.abs(score), 0);
+      
+      if (total === 0) {
+        // If all scores are 0, assign equal percentages
+        const equalPercentage = (100 / Object.keys(sortedScores).length).toFixed(2);
+        const percentages = Object.keys(sortedScores).map(style => ({
+          style,
+          percentage: equalPercentage
+        }));
+        setAesthetics(percentages);
+      } else {
         const percentages = Object.entries(sortedScores).map(([style, score]) => ({
           style,
-          percentage: ((score / total) * 100).toFixed(2)
+          percentage: ((Math.abs(score) / total) * 100).toFixed(2)
         }));
-
         setAesthetics(percentages);
-        setScores(sortedScores);
       }
-      setIsLoading(false);
+      
+      setScores(sortedScores);
+      setIsLoading(false); // Set isLoading to false after processing scores
     }
-  }, [router.isReady, router.query.scores]);
+  }, [router.query.scores]);
+  
+  
+  
 
   if (isLoading) {
     return <Box>Loading...</Box>;

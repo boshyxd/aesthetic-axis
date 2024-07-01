@@ -1,85 +1,77 @@
 export const quizQuestions = [
-    {
-      question: "I prefer dark and mysterious aesthetics.",
-      styles: { goth: 1, grunge: 0.5, emo: 0.5 }
-    },
-    {
-      question: "I'm drawn to pastel colors and cute designs.",
-      styles: { kawaii: 1, soft_girl: 0.8, cottagecore: 0.5 }
-    },
-    {
-      question: "I love vintage technology and Y2K fashion.",
-      styles: { y2k: 1, cyberpunk: 0.3 }
-    },
-    {
-      question: "Nature and rustic elements are important in my style.",
-      styles: { cottagecore: 1, bohemian: 0.7 }
-    },
-    {
-      question: "I enjoy mixing patterns and textures in my outfits.",
-      styles: { bohemian: 1, grunge: 0.5 }
-    },
-    {
-      question: "Neon colors and futuristic elements appeal to me.",
-      styles: { cyberpunk: 1, y2k: 0.5 }
-    },
-    {
-      question: "I prefer soft, flowy fabrics and romantic styles.",
-      styles: { soft_girl: 1, cottagecore: 0.7 }
-    },
-    {
-      question: "Edgy, alternative fashion resonates with me.",
-      styles: { emo: 1, grunge: 0.8, goth: 0.6 }
-    },
-    {
-      question: "I'm inspired by Japanese street fashion and anime aesthetics.",
-      styles: { kawaii: 1, y2k: 0.3 }
-    },
-    {
-      question: "I like to incorporate Victorian-inspired elements in my style.",
-      styles: { goth: 1, cottagecore: 0.4 }
-    },
-    {
-      question: "Distressed clothing and a 'lived-in' look appeal to me.",
-      styles: { grunge: 1, bohemian: 0.5 }
-    },
-    {
-      question: "I enjoy creating a dreamy, ethereal atmosphere with my style.",
-      styles: { soft_girl: 1, cottagecore: 0.7 }
-    },
-    {
-      question: "Bold, striking makeup looks are my preference.",
-      styles: { emo: 1, goth: 0.8, cyberpunk: 0.6 }
-    },
-    {
-      question: "I'm drawn to earthy tones and natural materials.",
-      styles: { bohemian: 1, cottagecore: 0.8 }
-    },
-    {
-      question: "Metallic and holographic materials excite me.",
-      styles: { y2k: 1, cyberpunk: 0.8 }
-    },
-    {
-      question: "I prefer a minimalist approach to fashion.",
-      styles: { soft_girl: 0.7, cyberpunk: 0.3 }
-    },
-    {
-      question: "Retro and nostalgic elements are important in my style.",
-      styles: { y2k: 1, cottagecore: 0.5 }
-    },
-    {
-      question: "I enjoy incorporating tech and gadgets into my look.",
-      styles: { cyberpunk: 1, y2k: 0.5 }
-    },
-    {
-      question: "Floral prints and delicate accessories appeal to me.",
-      styles: { cottagecore: 1, soft_girl: 0.8, kawaii: 0.5 }
-    },
-    {
-      question: "I prefer a rebellious, anti-fashion approach to style.",
-      styles: { grunge: 1, punk: 0.8, emo: 0.5 }
-    }
-  ];
+  {
+    question: "I prefer dark and mysterious aesthetics.",
+    styles: { goth: 1, grunge: 0.5, emo: 0.5 }
+  },
+  {
+    question: "I'm drawn to pastel colors and cute designs.",
+    styles: { kawaii: 1, soft_girl: 0.5, y2k: 0.5 }
+  },
+  {
+    question: "I love vintage technology and retro fashion.",
+    styles: { y2k: 1, cyberpunk: 0.5, cottagecore: 0.5 }
+  },
+  {
+    question: "Nature and rustic elements are important in my style.",
+    styles: { cottagecore: 1, bohemian: 0.5, grunge: 0.5 }
+  },
+  {
+    question: "I enjoy mixing patterns and textures in my outfits.",
+    styles: { bohemian: 1, soft_girl: 0.5, emo: 0.5 }
+  },
+  {
+    question: "Neon colors and futuristic elements appeal to me.",
+    styles: { cyberpunk: 1, y2k: 0.5, goth: 0.5 }
+  },
+  {
+    question: "I prefer soft, flowy fabrics and romantic styles.",
+    styles: { soft_girl: 1, cottagecore: 0.5, kawaii: 0.5 }
+  },
+  {
+    question: "Edgy, alternative fashion resonates with me.",
+    styles: { emo: 1, grunge: 0.5, cyberpunk: 0.5 }
+  },
+  {
+    question: "I'm inspired by Japanese street fashion and anime aesthetics.",
+    styles: { kawaii: 1, y2k: 0.5, soft_girl: 0.5 }
+  },
+  {
+    question: "I like to incorporate Victorian-inspired elements in my style.",
+    styles: { goth: 1, cottagecore: 0.5, bohemian: 0.5 }
+  },
+  {
+    question: "Distressed clothing and a 'lived-in' look appeal to me.",
+    styles: { grunge: 1, bohemian: 0.5, emo: 0.5 }
+  },
+  {
+    question: "I enjoy creating a dreamy, ethereal atmosphere with my style.",
+    styles: { soft_girl: 1, kawaii: 0.5, goth: 0.5 }
+  },
+  {
+    question: "Bold, striking makeup looks are my preference.",
+    styles: { emo: 1, cyberpunk: 0.5, y2k: 0.5 }
+  },
+  {
+    question: "I'm drawn to earthy tones and natural materials.",
+    styles: { bohemian: 1, cottagecore: 0.5, grunge: 0.5 }
+  },
+  {
+    question: "Metallic and holographic materials excite me.",
+    styles: { y2k: 1, cyberpunk: 0.5, kawaii: 0.5 }
+  },
+  {
+    question: "I prefer a minimalist approach to fashion.",
+    styles: { cyberpunk: 1, soft_girl: 0.5, goth: 0.5 }
+  },
+  {
+    question: "Retro and nostalgic elements are important in my style.",
+    styles: { cottagecore: 1, y2k: 0.5, emo: 0.5 }
+  },
+  {
+    question: "I enjoy incorporating tech and gadgets into my look.",
+    styles: { grunge: 1, cyberpunk: 0.5, bohemian: 0.5 }
+  }
+];
   
   export const styleDescriptions = {
     goth: "Dark, mysterious, and romantic. Gothic aesthetic embraces the beauty of darkness, often incorporating Victorian-inspired fashion with a modern twist.",

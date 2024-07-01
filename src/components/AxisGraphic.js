@@ -22,7 +22,9 @@ const AxisGraphic = ({ results = {} }) => {
     fillcolor: 'rgba(238, 237, 235, 0.5)',
     line: {
       color: '#ECC94B'
-    }
+    },
+    hoverinfo: 'text',
+    text: labels.map((label, index) => `${label}: ${values[index].toFixed(2)}`)
   }];
 
   const layout = {
@@ -35,11 +37,11 @@ const AxisGraphic = ({ results = {} }) => {
       angularaxis: {
         color: '#2F3645',
       },
-      bgcolor: 'rgba(0,0,0,0)',  // This makes the polar area background transparent
+      bgcolor: 'rgba(0,0,0,0)',
     },
     showlegend: false,
-    paper_bgcolor: 'rgba(0,0,0,0)',  // This makes the entire plot background transparent
-    plot_bgcolor: 'rgba(0,0,0,0)',   // This makes the plotting area background transparent
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
     font: {
       family: 'Arial, sans-serif',
       size: 12,
@@ -55,7 +57,12 @@ const AxisGraphic = ({ results = {} }) => {
 
   const config = {
     displayModeBar: false,
-    responsive: true
+    responsive: true,
+    scrollZoom: false,
+    doubleClick: false,
+    showTips: true,  // Enable hover tips
+    modeBarButtonsToRemove: ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
+    staticPlot: false  // Allow hover interactions
   };
 
   return (
