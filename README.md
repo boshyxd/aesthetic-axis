@@ -9,7 +9,7 @@ AestheticAxis is an interactive quiz application that helps users discover their
 ## 🌟 Features
 
 - Interactive quiz with slider-based questions
-- Multiple aesthetic categories (e.g., goth, kawaii, cyberpunk)
+- Multiple aesthetic categories (e.g., goth, cottagecore, cyberpunk)
 - Dynamic progress bar
 - Personalized results based on user responses
 - Responsive design for various devices
