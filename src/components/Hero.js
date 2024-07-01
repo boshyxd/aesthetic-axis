@@ -3,7 +3,6 @@ import { Box, Heading, Text, Button, VStack, Container } from "@chakra-ui/react"
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import BoxReveal from "@/components/magicui/box-reveal";
 import LetterPullup from "@/components/magicui/letter-pullup";
 
 export default function Hero() {
@@ -13,7 +12,6 @@ export default function Hero() {
     <Box minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bgGradient="linear(to-b, green.500, green.700)">
       <Container centerContent maxW="container.xl">
         <VStack spacing={4} zIndex={10}>
-          <BoxReveal boxColor="#5046e6" duration={0.5}>
             <Box width={250} height={250} position="relative">
               <Image
                 src={`${router.basePath}/images/aesthetic-axis-logo.png`}
@@ -22,9 +20,8 @@ export default function Hero() {
                 objectFit="contain"
               />
             </Box>
-          </BoxReveal>
 
-          <BoxReveal boxColor="#5046e6" duration={0.5}>
+
             <Box
               textShadow="2px 2px 4px rgba(0,0,0,0.4)"
               letterSpacing="wide"
@@ -35,9 +32,7 @@ export default function Hero() {
                 className="text-7xl sm:text-8xl md:text-9xl lg:text-10xl font-extrabold text-white tracking-tight"
               />
             </Box>
-          </BoxReveal>
 
-          <BoxReveal boxColor="#5046e6" duration={0.5}>
             <Text 
               fontSize={["xl", "2xl", "3xl"]} 
               color="white" 
@@ -49,9 +44,7 @@ export default function Hero() {
             >
               Discover your unique style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
             </Text>
-          </BoxReveal>
 
-          <BoxReveal boxColor="#5046e6" duration={0.5}>
             <Link href="/quiz" passHref>
               <Button
                 as="a"
@@ -69,7 +62,6 @@ export default function Hero() {
                 Start Quiz
               </Button>
             </Link>
-          </BoxReveal>
         </VStack>
       </Container>
     </Box>
