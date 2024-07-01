@@ -16,6 +16,8 @@ const Quiz = () => {
   const [sliderValue, setSliderValue] = useState(3);
   const [mountainTops, setMountainTops] = useState([]);
   const [isInitialAnimation, setIsInitialAnimation] = useState(true);
+  const [availableQuestions, setAvailableQuestions] = useState([]);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,6 +33,11 @@ const Quiz = () => {
     setTimeout(() => {
       animateMountainTops(true);
     }, 500);
+
+    const allQuestions = [...Array(quizQuestions.length).keys()];
+    const initialQuestionIndex = Math.floor(Math.random() * quizQuestions.length);
+    setCurrentQuestion(initialQuestionIndex);
+    setAvailableQuestions(allQuestions.filter(index => index !== initialQuestionIndex));
   }, []);
 
   const animateMountainTops = (isInitial = false) => {
@@ -58,6 +65,27 @@ const Quiz = () => {
     animateLayer(0); // Start with the first layer
   };
 
+  const getRandomQuestion = () => {
+    if (answeredQuestions + 1 >= quizQuestions.length) {
+      // All questions have been answered
+      router.push({
+        pathname: '/results',
+        query: { scores: JSON.stringify(scores) },
+      });
+      return null;
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+    const questionIndex = availableQuestions[randomIndex];
+
+    // Remove the selected question from available questions
+    setAvailableQuestions(prevQuestions => 
+      prevQuestions.filter((_, index) => index !== randomIndex)
+    );
+
+    return questionIndex;
+  };
+
   const handleAnswer = (value) => {
     setScores(prevScores => {
       const newScores = { ...prevScores };
@@ -68,14 +96,12 @@ const Quiz = () => {
       return newScores;
     });
   
-    if (currentQuestion < quizQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    setAnsweredQuestions(prev => prev + 1);
+
+    const nextQuestion = getRandomQuestion();
+    if (nextQuestion !== null) {
+      setCurrentQuestion(nextQuestion);
       animateMountainTops(false);
-    } else {
-      router.push({
-        pathname: '/results',
-        query: { scores: JSON.stringify(scores) },
-      });
     }
   };
 
@@ -140,7 +166,7 @@ const Quiz = () => {
             <Heading as="h1" size="2xl" className="text-quaternary text-center" textAlign="center">
               AestheticAxis Quiz
             </Heading>
-            <ProgressBar current={currentQuestion + 1} total={quizQuestions.length} />
+            <ProgressBar current={answeredQuestions + 1} total={quizQuestions.length} />
             <AnimatePresence mode="wait">
               <MotionBox
                 key={currentQuestion}
