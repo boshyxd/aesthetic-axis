@@ -12,7 +12,7 @@ export default function Hero() {
           <BoxReveal boxColor="#5046e6" duration={0.5}>
             <Box width={250} height={250} position="relative">
               <img
-                src="/images/aesthetic-axis-logo.png"
+                src="/public/images/aesthetic-axis-logo.png"
                 alt="AestheticAxis Logo"
                 style={{
                   maxWidth: '100%',

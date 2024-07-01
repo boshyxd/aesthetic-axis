@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
         <title>AestheticAxis</title>
         <meta name="description" content="AestheticAxis - Find Your Style" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/public/images/favicon.ico" />
       </Head>
       {mounted && <Component {...pageProps} />}
     </ChakraProvider>
