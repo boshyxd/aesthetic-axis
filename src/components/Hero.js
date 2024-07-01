@@ -43,6 +43,21 @@ export default function Hero() {
       <LampHeader />
       <Container centerContent>
         <VStack spacing={8} zIndex={10}>
+        <Box width={200} height={200} position="relative">
+            <img
+              src="/images/aesthetic-axis-logo.png"
+              alt="AestheticAxis Logo"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                objectFit: 'contain',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+              }}
+            />
+          </Box>
           <Heading as="h1" size="4xl" color="white" fontWeight="extrabold" letterSpacing="tight">
             AestheticAxis
           </Heading>

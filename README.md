@@ -1,7 +1,7 @@
 # AestheticAxis 🎨
 
 <div align="center">
-  <img src="https://your-logo-url-here.com" alt="AestheticAxis Logo" width="200" height="200">
+  <img src="https://i.ibb.co/Nr4rj6p/aesthetic-axis-logo.png" alt="AestheticAxis Logo" width="200" height="200">
 </div>
 
 AestheticAxis is an interactive quiz application that helps users discover their unique aesthetic style. By answering a series of questions, users can explore various aesthetic categories and find the one that resonates most with their personal taste.
