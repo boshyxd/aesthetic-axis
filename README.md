@@ -45,9 +45,13 @@ AestheticAxis is an interactive quiz application that helps users discover their
 
 ## 🛠️ Built With
 
+- [React](https://reactjs.org/) - JavaScript library for building user interfaces
 - [Next.js](https://nextjs.org/) - React framework for production
 - [Chakra UI](https://chakra-ui.com/) - Component library for building accessible React applications
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
+- [ESLint](https://eslint.org/) - Tool for identifying and reporting on patterns in JavaScript
+
 
 ## 📚 Learn More
 
