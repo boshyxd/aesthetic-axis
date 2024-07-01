@@ -73,8 +73,7 @@ const Navbar = () => {
         <Flex alignItems={'center'}>
           <Stack direction={'row'} spacing={6} alignItems="center"> {/* Added alignItems="center" */}
             <NavLink href="/">Home</NavLink>
-            <NavLink href="/quiz">Quiz</NavLink>
-            
+
             <Link href="/quiz" passHref legacyBehavior>
               <Button
                 as="a"
