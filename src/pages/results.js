@@ -14,35 +14,41 @@ const Results = () => {
   useEffect(() => {
     if (router.query.scores) {
       const parsedScores = JSON.parse(router.query.scores);
-      const sortedScores = Object.entries(parsedScores)
-        .sort(([,a],[,b]) => b-a)
-        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+      const total = Object.values(parsedScores).reduce((sum, score) => sum + Math.abs(score), 0);
       
-      const total = Object.values(sortedScores).reduce((sum, score) => sum + Math.abs(score), 0);
-      
+      let percentages;
       if (total === 0) {
         // If all scores are 0, assign equal percentages
-        const equalPercentage = (100 / Object.keys(sortedScores).length).toFixed(2);
-        const percentages = Object.keys(sortedScores).map(style => ({
+        const equalPercentage = (100 / Object.keys(parsedScores).length).toFixed(2);
+        percentages = Object.keys(parsedScores).map(style => ({
           style,
           percentage: equalPercentage
         }));
-        setAesthetics(percentages);
       } else {
-        const percentages = Object.entries(sortedScores).map(([style, score]) => ({
+        percentages = Object.entries(parsedScores).map(([style, score]) => ({
           style,
           percentage: ((Math.abs(score) / total) * 100).toFixed(2)
         }));
-        setAesthetics(percentages);
       }
       
-      setScores(sortedScores);
-      setIsLoading(false); // Set isLoading to false after processing scores
+      // Sort percentages in descending order
+      percentages.sort((a, b) => parseFloat(b.percentage) - parseFloat(a.percentage));
+      
+      setAesthetics(percentages);
+      
+      // Create scores object for AxisGraphic
+      const graphScores = percentages.reduce((acc, { style, percentage }) => {
+        acc[style] = parseFloat(percentage);
+        return acc;
+      }, {});
+      setScores(graphScores);
+      
+      // Log all percentages
+      console.log("All percentages:", percentages);
+      
+      setIsLoading(false);
     }
   }, [router.query.scores]);
-  
-  
-  
 
   if (isLoading) {
     return <Box>Loading...</Box>;
