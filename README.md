@@ -9,7 +9,7 @@ AestheticAxis is an interactive quiz application that helps users discover their
 ## 🌟 Features
 
 - Interactive quiz with slider-based questions
-- Multiple aesthetic categories (e.g., goth, kawaii, cyberpunk)
+- Multiple aesthetic categories (e.g., goth, cottagecore, cyberpunk)
 - Dynamic progress bar
 - Personalized results based on user responses
 - Responsive design for various devices
@@ -20,8 +20,7 @@ AestheticAxis is an interactive quiz application that helps users discover their
 - [Next.js](https://nextjs.org/) - React framework for production
 - [Chakra UI](https://chakra-ui.com/) - Component library for building accessible React applications
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript
-
+  
 ## 🚀 Getting Started
 
 ### Prerequisites
