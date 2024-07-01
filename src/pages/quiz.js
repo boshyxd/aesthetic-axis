@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import QuizQuestion from '../components/QuizQuestion';
 import ProgressBar from '../components/ProgressBar';
 import { quizQuestions } from '../data/quizQuestions';
+import Navbar from '../components/Navbar';
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
@@ -28,15 +29,15 @@ const Quiz = () => {
       setTimeout(() => {
         animateMountainTops();
         setIsInitialRender(false);
-      }, 500); // Delay the initial animation by 500ms
+      }, 500);
     }
   }, [isInitialRender]);
 
   const animateMountainTops = () => {
     const newTops = mountainTops.map((layer, layerIndex) =>
       layer.map((_, index) => {
-        const minHeight = layerIndex * 100 + 50; // Minimum height based on layer
-        const maxHeight = minHeight + 100; // Maximum height for this layer
+        const minHeight = layerIndex * 100 + 50;
+        const maxHeight = minHeight + 100;
         return Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
       })
     );
@@ -86,76 +87,79 @@ const Quiz = () => {
   const colors = ['#38a169', '#2f855a', '#276749', '#1e4e3a', '#15352b'];
 
   return (
-    <MotionBox 
-      className="bg-bg-primary min-h-screen relative overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="0"
-        zIndex="0"
+    <>
+      <Navbar />
+      <MotionBox 
+        className="bg-bg-primary min-h-screen relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        <svg id="visual" viewBox="0 0 900 600" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }} xmlns="http://www.w3.org/2000/svg">
-          {mountainTops.map((layer, index) => (
-            <motion.path
-              key={index}
-              d={generateSVGPath(layer)}
-              fill={colors[index]}
-              initial={false}
-              animate={{ d: generateSVGPath(layer) }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            />
-          ))}
-        </svg>
-      </Box>
-      <Container maxW="4xl" height="50vh" display="flex" flexDirection="column" position="relative" zIndex="1">
-        <Spacer minHeight="22vh" />
-        <VStack spacing={12} align="flex">
-          <Heading as="h1" size="2xl" className="text-quaternary text-center" textAlign="center">
-            AestheticAxis Quiz
-          </Heading>
-          <ProgressBar current={currentQuestion + 1} total={quizQuestions.length} />
-          <AnimatePresence mode="wait">
-            <MotionBox
-              key={currentQuestion}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <QuizQuestion
-                question={quizQuestions[currentQuestion].question}
-                onSliderChange={handleSliderChange}
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          zIndex="0"
+        >
+          <svg id="visual" viewBox="0 0 900 600" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }} xmlns="http://www.w3.org/2000/svg">
+            {mountainTops.map((layer, index) => (
+              <motion.path
+                key={index}
+                d={generateSVGPath(layer)}
+                fill={colors[index]}
+                initial={false}
+                animate={{ d: generateSVGPath(layer) }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               />
-            </MotionBox>
-          </AnimatePresence>
-          <Flex justify="center" gap={4}>
-            <MotionButton
-              onClick={() => handleAnswer(sliderValue)}
-              className="bg-secondary hover:bg-primary text-quaternary font-bold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Answer Question
-            </MotionButton>
-            <MotionButton 
-              onClick={() => handleAnswer(3)} 
-              className="bg-secondary hover:bg-primary text-quaternary font-bold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Skip Question
-            </MotionButton>
-          </Flex>
-        </VStack>
-        <Spacer />
-      </Container>
-    </MotionBox>
+            ))}
+          </svg>
+        </Box>
+        <Container maxW="4xl" height="calc(100vh - 64px)" display="flex" flexDirection="column" position="relative" zIndex="1">
+          <Spacer minHeight="22vh" />
+          <VStack spacing={12} align="flex">
+            <Heading as="h1" size="2xl" className="text-quaternary text-center" textAlign="center">
+              AestheticAxis Quiz
+            </Heading>
+            <ProgressBar current={currentQuestion + 1} total={quizQuestions.length} />
+            <AnimatePresence mode="wait">
+              <MotionBox
+                key={currentQuestion}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <QuizQuestion
+                  question={quizQuestions[currentQuestion].question}
+                  onSliderChange={handleSliderChange}
+                />
+              </MotionBox>
+            </AnimatePresence>
+            <Flex justify="center" gap={4}>
+              <MotionButton
+                onClick={() => handleAnswer(sliderValue)}
+                className="bg-secondary hover:bg-primary text-quaternary font-bold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Answer Question
+              </MotionButton>
+              <MotionButton 
+                onClick={() => handleAnswer(3)} 
+                className="bg-secondary hover:bg-primary text-quaternary font-bold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Skip Question
+              </MotionButton>
+            </Flex>
+          </VStack>
+          <Spacer />
+        </Container>
+      </MotionBox>
+    </>
   );
 }
 
