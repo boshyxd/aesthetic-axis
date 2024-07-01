@@ -12,6 +12,9 @@ module.exports = {
         'tertiary': '#939185',
         'quaternary': '#2F3645',
       },
+      minHeight: {
+        'screen': '100vh',
+      },
     },
   },
   plugins: [],

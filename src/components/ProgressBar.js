@@ -6,8 +6,8 @@ const ProgressBar = ({ current, total }) => {
 
   return (
     <Box className="w-full max-w-2xl mx-auto mb-8">
-      <Progress value={progress} colorScheme="yellow" />
-      <Text className="text-tertiary text-right mt-2">
+      <Progress value={progress} colorScheme="yellow" height="4px" borderRadius="full" />
+      <Text className="text-tertiary text-right mt-2 font-medium">
         Question {current} of {total}
       </Text>
     </Box>

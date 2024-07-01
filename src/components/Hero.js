@@ -5,42 +5,9 @@ import Link from 'next/link';
 
 const MotionBox = motion(Box);
 
-const LampHeader = () => (
-  <MotionBox
-    position="relative"
-    height="40"
-    overflow="hidden"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 1 }}
-  >
-    <MotionBox
-      position="absolute"
-      inset="0"
-      bgGradient="linear(to-b, green.300, transparent)"
-      initial={{ y: '-100%' }}
-      animate={{ y: 0 }}
-      transition={{ duration: 1.5, ease: 'easeOut' }}
-    />
-    <MotionBox
-      position="absolute"
-      inset="0"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      initial={{ scale: 0.9, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.5, duration: 1 }}
-    >
-      <Box width="32" height="32" bg="white" borderRadius="full" boxShadow="lg" />
-    </MotionBox>
-  </MotionBox>
-);
-
 export default function Hero() {
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bgGradient="linear(to-b, green.500, green.700)">
-      <LampHeader />
       <Container centerContent>
         <VStack spacing={8} zIndex={10}>
         <Box width={200} height={200} position="relative">

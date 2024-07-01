@@ -6,3 +6,9 @@ body {
   background-color: #E6B9AE;
   color: white;
 }
+
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

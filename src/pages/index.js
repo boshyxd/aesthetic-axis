@@ -9,9 +9,7 @@ export default function Home() {
       <Head>
         <title>AestheticAxis</title>
         <meta name="description" content="Find your unique aesthetic through our interactive quiz" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+        <link rel="icon" href="/images/favicon.ico" />      </Head>
       <main>
         <Hero />
       </main>
