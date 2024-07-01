@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Heading, VStack, Button, Flex, Container, Spacer } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,13 +13,40 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [scores, setScores] = useState({});
   const [sliderValue, setSliderValue] = useState(3);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const [mountainTops, setMountainTops] = useState([
+    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+    [600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600]
+  ]);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setTimeout(() => {
+        animateMountainTops();
+        setIsInitialRender(false);
+      }, 500); // Delay the initial animation by 500ms
+    }
+  }, [isInitialRender]);
+
+  const animateMountainTops = () => {
+    const newTops = mountainTops.map((layer, layerIndex) =>
+      layer.map((_, index) => {
+        const minHeight = layerIndex * 100 + 50; // Minimum height based on layer
+        const maxHeight = minHeight + 100; // Maximum height for this layer
+        return Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+      })
+    );
+    setMountainTops(newTops);
+  };
 
   const handleAnswer = (value) => {
     setScores(prevScores => {
       const newScores = { ...prevScores };
       Object.entries(quizQuestions[currentQuestion].styles).forEach(([style, weight]) => {
-        // Always add a number, even if it's 0
         const scoreToAdd = value === 3 ? 0 : (value - 3) * weight;
         newScores[style] = (newScores[style] || 0) + scoreToAdd;
       });
@@ -28,20 +55,35 @@ const Quiz = () => {
   
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+      animateMountainTops();
     } else {
-      // Quiz finished, navigate to results page
       router.push({
         pathname: '/results',
         query: { scores: JSON.stringify(scores) },
       });
     }
   };
-  
-  
 
   const handleSliderChange = (value) => {
     setSliderValue(value);
   };
+
+  const generateSVGPath = (tops) => {
+    const width = 900;
+    const segments = tops.length - 1;
+    const segmentWidth = width / segments;
+    
+    let path = `M0 ${tops[0]}`;
+    tops.forEach((top, index) => {
+      if (index > 0) {
+        path += `L${index * segmentWidth} ${top}`;
+      }
+    });
+    path += `L900 ${tops[tops.length - 1]}L900 600L0 600Z`;
+    return path;
+  };
+
+  const colors = ['#38a169', '#2f855a', '#276749', '#1e4e3a', '#15352b'];
 
   return (
     <MotionBox 
@@ -50,7 +92,6 @@ const Quiz = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* SVG Background */}
       <Box
         position="absolute"
         top="0"
@@ -58,18 +99,20 @@ const Quiz = () => {
         right="0"
         bottom="0"
         zIndex="0"
-        dangerouslySetInnerHTML={{
-          __html: `
-            <svg id="visual" viewBox="0 0 900 600" preserveAspectRatio="none" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-              <path d="M0 181L82 139L164 259L245 115L327 181L409 145L491 121L573 193L655 79L736 247L818 217L900 151L900 0L818 0L736 0L655 0L573 0L491 0L409 0L327 0L245 0L164 0L82 0L0 0Z" fill="#38a169"></path>
-              <path d="M0 313L82 289L164 349L245 313L327 319L409 271L491 295L573 343L655 265L736 433L818 337L900 355L900 149L818 215L736 245L655 77L573 191L491 119L409 143L327 179L245 113L164 257L82 137L0 179Z" fill="#2f855a"></path>
-              <path d="M0 415L82 379L164 445L245 421L327 427L409 391L491 391L573 475L655 373L736 481L818 427L900 427L900 353L818 335L736 431L655 263L573 341L491 293L409 269L327 317L245 311L164 347L82 287L0 311Z" fill="#276749"></path>
-              <path d="M0 517L82 505L164 499L245 535L327 511L409 529L491 547L573 553L655 505L736 559L818 547L900 523L900 425L818 425L736 479L655 371L573 473L491 389L409 389L327 425L245 419L164 443L82 377L0 413Z" fill="#1e4e3a"></path>
-              <path d="M0 601L82 601L164 601L245 601L327 601L409 601L491 601L573 601L655 601L736 601L818 601L900 601L900 521L818 545L736 557L655 503L573 551L491 545L409 527L327 509L245 533L164 497L82 503L0 515Z" fill="#15352b"></path>
-            </svg>
-          `,
-        }}
-      />
+      >
+        <svg id="visual" viewBox="0 0 900 600" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }} xmlns="http://www.w3.org/2000/svg">
+          {mountainTops.map((layer, index) => (
+            <motion.path
+              key={index}
+              d={generateSVGPath(layer)}
+              fill={colors[index]}
+              initial={false}
+              animate={{ d: generateSVGPath(layer) }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
+          ))}
+        </svg>
+      </Box>
       <Container maxW="4xl" height="50vh" display="flex" flexDirection="column" position="relative" zIndex="1">
         <Spacer minHeight="22vh" />
         <VStack spacing={12} align="flex">

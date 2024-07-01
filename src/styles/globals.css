@@ -3,13 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #E6B9AE;
+  --bg-color: #276749; /* This is the exact color for green.700 in Chakra UI's default theme */
   --text-color: white;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Default weight */
+  font-style: normal;
 }
 
 html, body, #__next {
@@ -17,4 +21,13 @@ html, body, #__next {
   margin: 0;
   padding: 0;
   overflow-y: auto;
+}
+
+/* For specific elements or classes */
+.josefin-sans-heading {
+  font-weight: 700; /* Bold */
+}
+
+.josefin-sans-light {
+  font-weight: 300; /* Light */
 }
