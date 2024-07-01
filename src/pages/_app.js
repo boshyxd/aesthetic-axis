@@ -1,11 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import '../styles/globals.css'
 import theme from "../theme";
 import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -20,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         <title>AestheticAxis</title>
         <meta name="description" content="AestheticAxis - Find Your Style" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="icon" href="/public/images/favicon.ico" />
+        <link rel="icon" href={`${router.basePath}/images/favicon.ico`} />
       </Head>
       {mounted && <Component {...pageProps} />}
     </ChakraProvider>

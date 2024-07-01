@@ -1,28 +1,25 @@
 import React from 'react';
 import { Box, Heading, Text, Button, VStack, Container } from "@chakra-ui/react";
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import BoxReveal from "@/components/magicui/box-reveal";
 import LetterPullup from "@/components/magicui/letter-pullup";
 
 export default function Hero() {
+  const router = useRouter();
+
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column" alignItems="center" justifyContent="center" bgGradient="linear(to-b, green.500, green.700)">
       <Container centerContent maxW="container.xl">
         <VStack spacing={4} zIndex={10}>
           <BoxReveal boxColor="#5046e6" duration={0.5}>
             <Box width={250} height={250} position="relative">
-              <img
-                src="/public/images/aesthetic-axis-logo.png"
+              <Image
+                src={`${router.basePath}/images/aesthetic-axis-logo.png`}
                 alt="AestheticAxis Logo"
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  objectFit: 'contain',
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)'
-                }}
+                layout="fill"
+                objectFit="contain"
               />
             </Box>
           </BoxReveal>
