@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Heading, VStack, Button, Text, Progress, Card, CardHeader, CardBody, Stack, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Heading, VStack, Button, Text, Progress, Card, CardHeader, CardBody, Stack, Grid, GridItem, Container, Flex, Spacer } from "@chakra-ui/react";
 import Link from 'next/link';
 import { styleDescriptions } from '../data/quizQuestions';
 import AxisGraphic from '../components/AxisGraphic';
+import { useAuth } from '../hooks/useAuth';
+import { db } from '../firebase/config';
+import { doc, setDoc, arrayUnion } from 'firebase/firestore';
+import Navbar from '../components/Navbar';
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
 
 const Results = () => {
   const router = useRouter();
   const [aesthetics, setAesthetics] = useState([]);
   const [scores, setScores] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (router.query.scores) {
@@ -18,7 +26,6 @@ const Results = () => {
       
       let percentages;
       if (total === 0) {
-        // If all scores are 0, assign equal percentages
         const equalPercentage = (100 / Object.keys(parsedScores).length).toFixed(2);
         percentages = Object.keys(parsedScores).map(style => ({
           style,
@@ -31,86 +38,137 @@ const Results = () => {
         }));
       }
       
-      // Sort percentages in descending order
       percentages.sort((a, b) => parseFloat(b.percentage) - parseFloat(a.percentage));
       
       setAesthetics(percentages);
       
-      // Create scores object for AxisGraphic
       const graphScores = percentages.reduce((acc, { style, percentage }) => {
         acc[style] = parseFloat(percentage);
         return acc;
       }, {});
       setScores(graphScores);
       
-      // Log all percentages
       console.log("All percentages:", percentages);
       
       setIsLoading(false);
+
+      // Save results to Firebase
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        setDoc(userRef, {
+          name: user.displayName,
+          email: user.email,
+          quizResults: arrayUnion({
+            date: new Date().toISOString(),
+            results: graphScores
+          })
+        }, { merge: true })
+        .then(() => {
+          console.log("Results saved successfully");
+        })
+        .catch(error => {
+          console.error("Error saving results:", error);
+        });
+      }
     }
-  }, [router.query.scores]);
+  }, [router.query.scores, user]);
 
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
 
+  const mainResult = aesthetics[0];
+
   return (
-    <Box bg="green.700" minHeight="100vh" overflowY="auto" py={8}>
-      <VStack spacing={8} width="100%" maxWidth="800px" margin="0 auto" px={4}>
-        <Heading as="h1" size="2xl" color="white">
-          Your AestheticAxis Results
-        </Heading>
-        {Object.keys(scores).length > 0 && <AxisGraphic results={scores} />}
-        <Stack spacing={4} width="100%">
-          {aesthetics.map(({style, percentage}, index) => (
-            index === 0 ? (
-              <Card 
-                key={style} 
-                variant="elevated" 
-                borderWidth="4px" 
-                borderColor="yellow.300"
-                mx="auto"
-              >
-                <CardHeader>
-                  <Heading size="lg" color="gray.700">
-                    Your Main Aesthetic: {style.charAt(0).toUpperCase() + style.slice(1)}
+    <Box bg="green.700" minHeight="100vh" overflowY="auto">
+      <Navbar />
+      <Spacer height="80px" />
+      <Container maxW="container.xl" py={12}>
+        <VStack spacing={12} width="100%" align="stretch">
+          <MotionBox
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Heading as="h1" size="2xl" color="white" textAlign="center">
+              Your AestheticAxis Results
+            </Heading>
+          </MotionBox>
+
+          <MotionBox
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {Object.keys(scores).length > 0 && <AxisGraphic results={scores} />}
+          </MotionBox>
+
+          {/* Main Result Card */}
+          <MotionBox
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Card bg="yellow.100" shadow="xl" borderRadius="lg" borderWidth="2px" borderColor="yellow.400">
+              <CardHeader bg="yellow.300" borderTopRadius="lg">
+                <Heading size="lg" color="green.700" textAlign="center">Your Top Aesthetic</Heading>
+              </CardHeader>
+              <CardBody>
+                <VStack spacing={4} align="stretch">
+                  <Heading size="xl" color="green.700" textAlign="center">
+                    {mainResult.style.charAt(0).toUpperCase() + mainResult.style.slice(1)}
                   </Heading>
-                </CardHeader>
-                <CardBody>
-                  <Text color="gray.600" mb={4}>{styleDescriptions[style]}</Text>
-                  <Progress value={parseFloat(percentage)} colorScheme="blue" mb={2} />
-                  <Text color="gray.600">Match: {percentage}%</Text>
-                </CardBody>
-              </Card>
-            ) : null
-          ))}
-          <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-            {aesthetics.map(({style, percentage}, index) => (
-              index !== 0 && (
-                <GridItem key={style}>
-                  <Card variant="elevated" borderWidth="1px" borderColor="gray.200">
-                    <CardHeader>
-                      <Heading size="md" color="gray.700">
-                        {style.charAt(0).toUpperCase() + style.slice(1)}
-                      </Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Text color="gray.600" mb={4}>{styleDescriptions[style]}</Text>
-                      <Progress value={parseFloat(percentage)} colorScheme="blue" mb={2} />
-                      <Text color="gray.600">Match: {percentage}%</Text>
-                    </CardBody>
-                  </Card>
-                </GridItem>
-              )
+                  <Text fontSize="lg" textAlign="center">{styleDescriptions[mainResult.style]}</Text>
+                  <Progress value={parseFloat(mainResult.percentage)} colorScheme="green" size="lg" />
+                  <Text fontWeight="bold" textAlign="center" fontSize="2xl">{mainResult.percentage}%</Text>
+                </VStack>
+              </CardBody>
+            </Card>
+          </MotionBox>
+
+          <Heading as="h2" size="xl" color="white" textAlign="center" mt={8}>
+            Your Aesthetic Breakdown
+          </Heading>
+
+          <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={8}>
+            {aesthetics.slice(1).map(({ style, percentage }, index) => (
+              <MotionBox
+                key={style}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+              >
+                <Card bg="white" shadow="md" borderRadius="lg" height="100%">
+                  <CardHeader bg="green.100">
+                    <Heading size="md" color="green.700">{style.charAt(0).toUpperCase() + style.slice(1)}</Heading>
+                  </CardHeader>
+                  <CardBody>
+                    <VStack spacing={3} align="stretch" height="100%">
+                      <Text flex="1">{styleDescriptions[style]}</Text>
+                      <Progress value={parseFloat(percentage)} colorScheme="green" size="sm" />
+                      <Text fontWeight="bold" textAlign="right">{percentage}%</Text>
+                    </VStack>
+                  </CardBody>
+                </Card>
+              </MotionBox>
             ))}
           </Grid>
-        </Stack>
-        <Link href="/" passHref>
-          <Button as="a" colorScheme="blue" size="lg">
-            Back to Home
-          </Button>
-        </Link>
-      </VStack>
+
+          <Flex justify="center" mt={8}>
+            <Link href="/profile" passHref>
+              <Button
+                as="a"
+                colorScheme="yellow"
+                size="lg"
+                fontWeight="bold"
+                _hover={{ bg: "yellow.500" }}
+              >
+                View Profile
+              </Button>
+            </Link>
+          </Flex>
+        </VStack>
+      </Container>
     </Box>
   );
 }

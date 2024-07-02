@@ -4,6 +4,7 @@ import { Box, Container, Button, Link as ChakraLink, Heading, Text, VStack } fro
 import dynamic from 'next/dynamic';
 import Navbar from '../components/Navbar';
 import FeatureSection from '../components/FeatureSection';
+import Footer from '../components/Footer';
 import Link from 'next/link';
 
 // Use dynamic import for Hero, but allow SSR
@@ -87,21 +88,7 @@ export default function Home() {
         </Box>
       </main>
 
-      <Box as="footer" bg="white" color="gray.700" py={8}>
-        <Container maxW="6xl">
-          <Box textAlign="center">
-            <ChakraLink
-              href="https://github.com/boshyxd/aesthetic-axis"
-              target="_blank"
-              rel="noopener noreferrer"
-              color="gray.500"
-              _hover={{ color: "gray.700" }}
-            >
-              View on GitHub
-            </ChakraLink>
-          </Box>
-        </Container>
-      </Box>
+      <Footer />
     </>
   );
 }
