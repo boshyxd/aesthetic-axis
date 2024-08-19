@@ -3,7 +3,7 @@ import {
   Box, Flex, Button, Text, useColorModeValue, IconButton,
   Menu, MenuButton, MenuList, MenuItem, Avatar, useDisclosure,
   Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton,
-  HStack, VStack, Container
+  HStack, VStack, Container, Spacer
 } from "@chakra-ui/react";
 import Link from 'next/link';
 import { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons';
@@ -11,6 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { useRouter } from 'next/router';
+import ColorModeToggle from './ColorModeToggle';
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -38,6 +39,7 @@ const Navbar = () => {
   const Logo = () => (
     <Link href="/" passHref>
       <Text
+        as="a"
         fontSize="2xl"
         fontWeight="bold"
         bgGradient="linear(to-r, green.400, green.600)"
@@ -55,7 +57,7 @@ const Navbar = () => {
   const NavItems = () => (
     <HStack spacing={4}>
       <Link href="/quiz" passHref>
-        <Button colorScheme="green" variant="ghost">
+        <Button as="a" colorScheme="green" variant="ghost">
           Start Quiz
         </Button>
       </Link>
@@ -77,7 +79,7 @@ const Navbar = () => {
           </MenuButton>
           <MenuList>
             <Link href="/profile" passHref>
-              <MenuItem>View Profile</MenuItem>
+              <MenuItem as="a">View Profile</MenuItem>
             </Link>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
@@ -85,12 +87,12 @@ const Navbar = () => {
       ) : (
         <>
           <Link href="/login" passHref>
-            <Button colorScheme="green" variant="outline">
+            <Button as="a" colorScheme="green" variant="outline">
               Login
             </Button>
           </Link>
           <Link href="/register" passHref>
-            <Button colorScheme="green" variant="solid">
+            <Button as="a" colorScheme="green" variant="solid">
               Register
             </Button>
           </Link>
@@ -115,14 +117,18 @@ const Navbar = () => {
           <Logo />
           <HStack spacing={8} alignItems="center" display={{ base: 'none', md: 'flex' }}>
             <NavItems />
+            <ColorModeToggle />
           </HStack>
-          <IconButton
-            size="md"
-            icon={<HamburgerIcon />}
-            aria-label="Open Menu"
-            display={{ md: 'none' }}
-            onClick={onOpen}
-          />
+          <Flex alignItems="center" display={{ base: 'flex', md: 'none' }}>
+            <ColorModeToggle />
+            <IconButton
+              size="md"
+              icon={<HamburgerIcon />}
+              aria-label="Open Menu"
+              ml={2}
+              onClick={onOpen}
+            />
+          </Flex>
         </Flex>
       </Container>
 

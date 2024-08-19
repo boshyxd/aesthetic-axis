@@ -10,6 +10,10 @@ const theme = extendTheme({
       bg: "#1A202C",
       text: "#E2E8F0",
     },
+    light: {
+      bg: "#F7FAFC",
+      text: "#1A202C",
+    },
   },
   fonts: {
     heading: '"Josefin Sans", sans-serif',
@@ -18,8 +22,8 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === "dark" ? "dark.bg" : "var(--bg-color)",
-        color: props.colorMode === "dark" ? "dark.text" : "var(--text-color)",
+        bg: "dark.bg",
+        color: "dark.text",
       },
     }),
   },
