@@ -58,7 +58,7 @@ export default function Hero() {
       </MotionBox>
 
       <Container centerContent maxW="container.xl" zIndex={1}>
-        <VStack spacing={8}>
+        <VStack spacing={2}>
           <MotionBox
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

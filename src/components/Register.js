@@ -36,11 +36,8 @@ const Register = () => {
       return;
     }
     try {
-      console.log("Attempting to create user with email:", email);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("User created successfully:", userCredential.user);
       await updateProfile(userCredential.user, { displayName: name });
-      console.log("User profile updated successfully");
       toast({
         title: "Registration successful",
         status: "success",
@@ -48,9 +45,6 @@ const Register = () => {
         isClosable: true,
       });
     } catch (error) {
-      console.error("Registration error:", error);
-      console.error("Error code:", error.code);
-      console.error("Error message:", error.message);
       toast({
         title: "Registration failed",
         description: error.message || "An unexpected error occurred",
@@ -60,6 +54,7 @@ const Register = () => {
       });
     }
   };
+
   const handleSocialLogin = async (provider) => {
     try {
       let authProvider;
@@ -117,47 +112,57 @@ const Register = () => {
       padding="6"
       borderRadius="lg"
       boxShadow="xl"
-      bg="white"
+      bg="gray.800"
+      color="white"
     >
       <VStack spacing={6}>
-        <Heading as="h1" size="xl" color="green.500">
+        <Heading as="h1" size="xl" color="green.300">
           Join AestheticAxis
         </Heading>
-        <Text fontSize="md" color="gray.600">
+        <Text fontSize="md" color="gray.300">
           Create your account to start your aesthetic journey
         </Text>
         <form onSubmit={handleRegister} style={{ width: '100%' }}>
           <VStack spacing={4}>
             <FormControl isRequired>
-              <FormLabel>Name</FormLabel>
+              <FormLabel color="gray.300">Name</FormLabel>
               <Input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your full name"
+                bg="gray.700"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
+              <FormLabel color="gray.300">Email</FormLabel>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
+                bg="gray.700"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel>Password</FormLabel>
+              <FormLabel color="gray.300">Password</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="Create a strong password"
+                  bg="gray.700"
+                  color="white"
+                  _placeholder={{ color: "gray.400" }}
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)}>
-                    <Icon as={showPassword ? FaEyeSlash : FaEye} />
+                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)} bg="gray.600">
+                    <Icon as={showPassword ? FaEyeSlash : FaEye} color="gray.300" />
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -171,25 +176,31 @@ const Register = () => {
               />
             )}
             <FormControl isRequired>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel color="gray.300">Confirm Password</FormLabel>
               <Input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
+                bg="gray.700"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
             </FormControl>
             <HStack width="100%">
-              <Checkbox isChecked={agreeTerms} onChange={(e) => setAgreeTerms(e.target.checked)}>
-                I agree to the Terms and Conditions
+              <Checkbox isChecked={agreeTerms} onChange={(e) => setAgreeTerms(e.target.checked)} colorScheme="green">
+                <Text color="gray.300">I agree to the Terms and Conditions</Text>
               </Checkbox>
               <Tooltip label="Please read our terms and conditions before proceeding" aria-label="Terms and conditions tooltip">
-                <Icon as={FaInfoCircle} color="gray.500" />
+                <Icon as={FaInfoCircle} color="gray.300" />
               </Tooltip>
             </HStack>
             <Button
               type="submit"
               colorScheme="green"
+              bg="green.500"
+              color="white"
+              _hover={{ bg: "green.600" }}
               width="100%"
               mt={4}
               isDisabled={!agreeTerms || passwordStrength < 3}
@@ -198,7 +209,7 @@ const Register = () => {
             </Button>
           </VStack>
         </form>
-        <Text fontSize="sm" color="gray.500">
+        <Text fontSize="sm" color="gray.400">
           Or register with
         </Text>
         <HStack spacing={4}>

@@ -48,11 +48,8 @@ const Results = () => {
       }, {});
       setScores(graphScores);
       
-      console.log("All percentages:", percentages);
-      
       setIsLoading(false);
 
-      // Save results to Firebase
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         setDoc(userRef, {
@@ -103,24 +100,23 @@ const Results = () => {
             {Object.keys(scores).length > 0 && <AxisGraphic results={scores} />}
           </MotionBox>
 
-          {/* Main Result Card */}
           <MotionBox
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Card bg="yellow.100" shadow="xl" borderRadius="lg" borderWidth="2px" borderColor="yellow.400">
-              <CardHeader bg="yellow.300" borderTopRadius="lg">
-                <Heading size="lg" color="green.700" textAlign="center">Your Top Aesthetic</Heading>
+            <Card bg="gray.800" shadow="xl" borderRadius="lg" borderWidth="2px" borderColor="green.500">
+              <CardHeader bg="green.600" borderTopRadius="lg">
+                <Heading size="lg" color="white" textAlign="center">Your Top Aesthetic</Heading>
               </CardHeader>
               <CardBody>
                 <VStack spacing={4} align="stretch">
-                  <Heading size="xl" color="green.700" textAlign="center">
+                  <Heading size="xl" color="white" textAlign="center">
                     {mainResult.style.charAt(0).toUpperCase() + mainResult.style.slice(1)}
                   </Heading>
-                  <Text fontSize="lg" textAlign="center">{styleDescriptions[mainResult.style]}</Text>
+                  <Text fontSize="lg" textAlign="center" color="gray.200">{styleDescriptions[mainResult.style]}</Text>
                   <Progress value={parseFloat(mainResult.percentage)} colorScheme="green" size="lg" />
-                  <Text fontWeight="bold" textAlign="center" fontSize="2xl">{mainResult.percentage}%</Text>
+                  <Text fontWeight="bold" textAlign="center" fontSize="2xl" color="white">{mainResult.percentage}%</Text>
                 </VStack>
               </CardBody>
             </Card>
@@ -138,15 +134,15 @@ const Results = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
               >
-                <Card bg="white" shadow="md" borderRadius="lg" height="100%">
-                  <CardHeader bg="green.100">
-                    <Heading size="md" color="green.700">{style.charAt(0).toUpperCase() + style.slice(1)}</Heading>
+                <Card bg="gray.800" shadow="md" borderRadius="lg" height="100%">
+                  <CardHeader bg="green.600">
+                    <Heading size="md" color="white">{style.charAt(0).toUpperCase() + style.slice(1)}</Heading>
                   </CardHeader>
                   <CardBody>
                     <VStack spacing={3} align="stretch" height="100%">
-                      <Text flex="1">{styleDescriptions[style]}</Text>
+                      <Text flex="1" color="gray.200">{styleDescriptions[style]}</Text>
                       <Progress value={parseFloat(percentage)} colorScheme="green" size="sm" />
-                      <Text fontWeight="bold" textAlign="right">{percentage}%</Text>
+                      <Text fontWeight="bold" textAlign="right" color="white">{percentage}%</Text>
                     </VStack>
                   </CardBody>
                 </Card>
@@ -158,10 +154,10 @@ const Results = () => {
             <Link href="/profile" passHref>
               <Button
                 as="a"
-                colorScheme="yellow"
+                colorScheme="green"
                 size="lg"
                 fontWeight="bold"
-                _hover={{ bg: "yellow.500" }}
+                _hover={{ bg: "green.500" }}
               >
                 View Profile
               </Button>

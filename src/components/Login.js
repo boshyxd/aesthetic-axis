@@ -98,29 +98,33 @@ const Login = () => {
       padding="6"
       borderRadius="lg"
       boxShadow="xl"
-      bg="white"
+      bg="gray.800"
+      color="white"
     >
       <VStack spacing={6}>
-        <Heading as="h1" size="xl" color="green.500">
+        <Heading as="h1" size="xl" color="green.300">
           Welcome Back
         </Heading>
-        <Text fontSize="md" color="gray.600">
+        <Text fontSize="md" color="gray.300">
           Sign in to continue your aesthetic journey
         </Text>
         <form onSubmit={handleLogin} style={{ width: '100%' }}>
           <VStack spacing={4}>
             <FormControl>
-              <FormLabel>Email</FormLabel>
+              <FormLabel color="gray.300">Email</FormLabel>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
+                bg="gray.700"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Password</FormLabel>
+              <FormLabel color="gray.300">Password</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -128,10 +132,13 @@ const Login = () => {
                   onChange={handlePasswordChange}
                   placeholder="Enter your password"
                   required
+                  bg="gray.700"
+                  color="white"
+                  _placeholder={{ color: "gray.400" }}
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)}>
-                    <Icon as={showPassword ? FaEyeSlash : FaEye} />
+                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)} bg="gray.600">
+                    <Icon as={showPassword ? FaEyeSlash : FaEye} color="gray.300" />
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -147,6 +154,9 @@ const Login = () => {
             <Button
               type="submit"
               colorScheme="green"
+              bg="green.500"
+              color="white"
+              _hover={{ bg: "green.600" }}
               width="100%"
               mt={4}
             >
@@ -155,7 +165,7 @@ const Login = () => {
           </VStack>
         </form>
         <Divider />
-        <Text fontSize="sm" color="gray.500">
+        <Text fontSize="sm" color="gray.400">
           Or continue with
         </Text>
         <HStack spacing={4}>

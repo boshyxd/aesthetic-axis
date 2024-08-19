@@ -74,16 +74,16 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <Box className="min-h-screen bg-gradient-to-b from-bg-primary to-secondary">
+      <Box bg="green.700" minHeight="100vh" display="flex" flexDirection="column">
         <Navbar />
-        <Container maxW="container.md" py={16}>
+        <Container maxW="container.md" py={24} flex="1">
           <ScaleFade initialScale={0.9} in={true}>
-            <VStack spacing={8} align="stretch" bg="white" p={8} borderRadius="xl" boxShadow="xl">
-              <Heading as="h1" size="2xl" className="text-quaternary text-center">
+            <VStack spacing={8} align="stretch" bg="gray.800" p={55} borderRadius="xl" boxShadow="xl">
+              <Heading as="h1" size="2xl" className="text-white text-center">
                 Please log in to view your profile
               </Heading>
               <Link href="/login" passHref>
-                <Button as="a" colorScheme="blue" size="lg" leftIcon={<FaUserCircle />}>
+                <Button as="a" colorScheme="green" size="lg" leftIcon={<FaUserCircle />}>
                   Log In
                 </Button>
               </Link>
@@ -94,13 +94,13 @@ const Profile = () => {
       </Box>
     );
   }
-
+  
   return (
-    <Box className="min-h-screen bg-gradient-to-b from-bg-primary to-secondary">
+    <Box className="min-h-screen bg-green-700">
       <Navbar />
       <Container maxW="container.xl" py={16}>
         <VStack spacing={12} align="stretch">
-          <Box height="8px" /> {/* Added spacer */}
+          <Box height="8px" />
           <ScaleFade initialScale={0.9} in={true}>
             <Box bg="white" p={8} borderRadius="xl" boxShadow="xl">
               <Flex direction={["column", "row"]} align="center" justify="space-between">

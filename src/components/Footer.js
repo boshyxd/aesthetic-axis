@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box, Container, Flex, Text, Link, IconButton, Stack } from "@chakra-ui/react";
+import { Box, Container, Flex, Text, Link, IconButton, Stack, useColorModeValue } from "@chakra-ui/react";
 import { FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
+  const bgColor = useColorModeValue("gray.100", "gray.900");
+  const textColor = useColorModeValue("gray.700", "gray.200");
   return (
-    <Box as="footer" bg="gray.100" color="gray.700" py={8}>
+    <Box as="footer" bg={bgColor} color={textColor} py={8}>
       <Container maxW="6xl">
         <Flex direction={{ base: "column", md: "row" }} justify="space-between" align="center">
           <Text fontSize="sm" mb={{ base: 4, md: 0 }}>

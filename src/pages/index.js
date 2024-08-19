@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { Box, Container, Button, Link as ChakraLink, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Button, Link as ChakraLink, Heading, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import dynamic from 'next/dynamic';
 import Navbar from '../components/Navbar';
 import FeatureSection from '../components/FeatureSection';
@@ -31,6 +31,7 @@ const IconCloudDemo = () => (
 );
 
 export default function Home() {
+  const bgColor = useColorModeValue("green.700", "green.900");
   return (
     <>
       <Head>
@@ -45,7 +46,7 @@ export default function Home() {
         <Hero />
         <FeatureSection />
 
-        <Box minHeight="100vh" bg="bg-primary" py={16}>
+        <Box minHeight="100vh" bg={bgColor} py={16}>
           <Container maxW="6xl">
             <VStack spacing={8} align="center">
               <Heading
@@ -68,7 +69,7 @@ export default function Home() {
           </Container>
         </Box>
 
-        <Box as="section" py={20} bg="bg-primary">
+        <Box as="section" py={20} bg={bgColor}>
           <Container maxW="6xl" centerContent>
             <Box textAlign="center" mb={10}>
               <ChakraLink as={Link} href="/quiz" passHref>
