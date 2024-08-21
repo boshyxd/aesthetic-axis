@@ -1,15 +1,20 @@
 import React from 'react';
-import { Box, Heading, Text, Button, VStack, Container, Flex } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, VStack, Container, useColorModeValue } from "@chakra-ui/react";
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import LetterPullup from "@/components/ui/letter-pullup";
 import { motion } from "framer-motion";
+import LetterPullup from "@/components/ui/letter-pullup";
 
 const MotionBox = motion(Box);
 
 export default function Hero() {
   const router = useRouter();
+
+  const bgGradient = useColorModeValue(
+    "linear(to-b, green.300, green.600)",
+    "linear(to-b, green.700, green.900)"
+  );
 
   return (
     <Box 
@@ -18,11 +23,10 @@ export default function Hero() {
       flexDirection="column" 
       alignItems="center" 
       justifyContent="center" 
-      bgGradient="linear(to-b, green.500, green.700)"
+      bgGradient={bgGradient}
       position="relative"
       overflow="hidden"
     >
-
       {/* Background animated shapes */}
       <MotionBox
         position="absolute"
@@ -58,58 +62,52 @@ export default function Hero() {
         ))}
       </MotionBox>
 
-      <Container centerContent maxW="container.xl" zIndex={1}>
-        <VStack spacing={2}>
+      <Container maxW="container.xl" centerContent position="relative" zIndex="1">
+        <VStack spacing={8} align="center">
           <MotionBox
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <Image
               src={`${router.basePath}/images/aesthetic-axis-logo.png`}
               alt="AestheticAxis Logo"
-              width={300}
-              height={300}
+              width={200}
+              height={200}
+              quality={100}
             />
           </MotionBox>
 
-          <MotionBox
-            textShadow="2px 2px 4px rgba(0,0,0,0.4)"
-            letterSpacing="wide"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <LetterPullup 
-              words="AestheticAxis" 
-              delay={0.15}
-              className="text-7xl sm:text-8xl md:text-9xl lg:text-10xl font-extrabold text-white tracking-tight"
-              style={{color: "white"}}
-            />
-          </MotionBox>
+          <LetterPullup 
+            words="AestheticAxis" 
+            delay={0.15}
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight"
+            style={{color: "white"}}
+          />
 
           <MotionBox
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
             <Text 
-              fontSize={["xl", "2xl", "3xl"]} 
+              fontSize={["lg", "xl", "2xl"]} 
               color="white" 
-              maxWidth="4xl" 
+              maxWidth="3xl" 
               textAlign="center"
               fontWeight="medium"
               letterSpacing="wide"
               textShadow="1px 1px 2px rgba(0,0,0,0.2)"
+              mb={6}
             >
               Discover your unique style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
             </Text>
           </MotionBox>
 
           <MotionBox
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <Link href="/quiz" passHref>
               <Button
@@ -120,10 +118,10 @@ export default function Hero() {
                 _hover={{ bg: "green.100", transform: "translateY(-5px)" }}
                 fontWeight="bold"
                 transition="all 0.3s"
-                boxShadow="md"
+                boxShadow="lg"
                 fontSize="xl"
                 py={6}
-                px={8}
+                px={10}
                 borderRadius="full"
               >
                 Start Quiz

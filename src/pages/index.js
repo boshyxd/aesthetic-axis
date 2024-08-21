@@ -6,9 +6,7 @@ import Navbar from '../components/Navbar';
 import FeatureSection from '../components/FeatureSection';
 import Footer from '../components/Footer';
 import Link from 'next/link';
-
-// Use dynamic import for Hero, but allow SSR
-const Hero = dynamic(() => import('../components/Hero'), { ssr: true });
+import Hero from '../components/Hero';
 
 // Use dynamic import for IconCloud, with loading fallback
 const IconCloud = dynamic(() => import('../components/ui/icon-cloud'), { 
@@ -31,6 +29,8 @@ const IconCloudDemo = () => (
 );
 
 export default function Home() {
+  const bgColor = useColorModeValue("green.700", "green.900");
+
   return (
     <>
       <Head>
@@ -45,8 +45,13 @@ export default function Home() {
         <Hero />
         <FeatureSection />
 
-        <Box minHeight="100vh" bg="green.700" py={16}>
-          <Container maxW="6xl">
+        <Box minHeight="100vh" bg={bgColor} py={16} position="relative" overflow="hidden">
+          <div className="stars">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+          </div>
+          <Container maxW="6xl" position="relative" zIndex={2}>
             <VStack spacing={8} align="center">
               <Heading
                 as="h2"
@@ -68,8 +73,8 @@ export default function Home() {
           </Container>
         </Box>
 
-        <Box as="section" py={20} bg="green.700">
-          <Container maxW="6xl" centerContent>
+        <Box as="section" py={20} bg={bgColor} position="relative">
+          <Container maxW="6xl" centerContent position="relative" zIndex={2}>
             <Box textAlign="center" mb={10}>
               <ChakraLink as={Link} href="/quiz" passHref>
                 <Button

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { 
   Box, VStack, Heading, Text, Input, Button, FormControl, 
   FormLabel, InputGroup, InputRightElement, Progress, 
-  useToast, Divider, HStack, Icon
+  useToast, Divider, HStack, Icon, useColorModeValue
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FaEye, FaEyeSlash, FaGoogle, FaGithub, FaTwitter } from 'react-icons/fa';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth';
+import { FaEye, FaEyeSlash, FaGoogle, FaGithub } from 'react-icons/fa';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { useAuth } from '../hooks/useAuth';
 
@@ -88,6 +88,14 @@ const Login = () => {
     setPasswordStrength(calculatePasswordStrength(newPassword));
   };
 
+  // Theme-aware colors
+  const bgColor = useColorModeValue("light.bg", "dark.bg");
+  const textColor = useColorModeValue("light.text", "dark.text");
+  const inputBgColor = useColorModeValue("gray.100", "gray.700");
+  const buttonBgColor = useColorModeValue("green.500", "green.200");
+  const buttonTextColor = useColorModeValue("white", "gray.800");
+  const buttonHoverBgColor = useColorModeValue("green.600", "green.300");
+
   return (
     <MotionBox
       initial={{ opacity: 0, y: 20 }}
@@ -98,33 +106,32 @@ const Login = () => {
       padding="6"
       borderRadius="lg"
       boxShadow="xl"
-      bg="gray.800"
-      color="white"
+      bg={bgColor}
+      color={textColor}
     >
       <VStack spacing={6}>
-        <Heading as="h1" size="xl" color="green.300">
+        <Heading as="h1" size="xl" color="green.400">
           Welcome Back
         </Heading>
-        <Text fontSize="md" color="gray.300">
+        <Text fontSize="md" opacity={0.8}>
           Sign in to continue your aesthetic journey
         </Text>
         <form onSubmit={handleLogin} style={{ width: '100%' }}>
           <VStack spacing={4}>
             <FormControl>
-              <FormLabel color="gray.300">Email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-                bg="gray.700"
-                color="white"
-                _placeholder={{ color: "gray.400" }}
+                bg={inputBgColor}
+                _placeholder={{ opacity: 0.6 }}
               />
             </FormControl>
             <FormControl>
-              <FormLabel color="gray.300">Password</FormLabel>
+              <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -132,13 +139,12 @@ const Login = () => {
                   onChange={handlePasswordChange}
                   placeholder="Enter your password"
                   required
-                  bg="gray.700"
-                  color="white"
-                  _placeholder={{ color: "gray.400" }}
+                  bg={inputBgColor}
+                  _placeholder={{ opacity: 0.6 }}
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)} bg="gray.600">
-                    <Icon as={showPassword ? FaEyeSlash : FaEye} color="gray.300" />
+                  <Button h="1.75rem" size="sm" onClick={() => setShowPassword(!showPassword)} variant="ghost">
+                    <Icon as={showPassword ? FaEyeSlash : FaEye} />
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -153,10 +159,9 @@ const Login = () => {
             )}
             <Button
               type="submit"
-              colorScheme="green"
-              bg="green.500"
-              color="white"
-              _hover={{ bg: "green.600" }}
+              bg={buttonBgColor}
+              color={buttonTextColor}
+              _hover={{ bg: buttonHoverBgColor }}
               width="100%"
               mt={4}
             >
@@ -165,14 +170,14 @@ const Login = () => {
           </VStack>
         </form>
         <Divider />
-        <Text fontSize="sm" color="gray.400">
+        <Text fontSize="sm" opacity={0.8}>
           Or continue with
         </Text>
         <HStack spacing={4}>
-          <Button onClick={() => handleSocialLogin('google')} leftIcon={<FaGoogle />} colorScheme="red" variant="outline">
+          <Button onClick={() => handleSocialLogin('google')} leftIcon={<FaGoogle />} variant="outline">
             Google
           </Button>
-          <Button onClick={() => handleSocialLogin('github')} leftIcon={<FaGithub />} colorScheme="gray" variant="outline">
+          <Button onClick={() => handleSocialLogin('github')} leftIcon={<FaGithub />} variant="outline">
             GitHub
           </Button>
         </HStack>
