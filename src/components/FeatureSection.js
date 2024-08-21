@@ -21,12 +21,17 @@ const Feature = ({ title, text, icon, color }) => {
       borderTop="4px solid"
       borderColor={color}
       _hover={{ transform: 'translateY(-5px)', transition: 'all 0.3s ease' }}
+      height="100%"
+      display="flex"
+      flexDirection="column"
     >
       <Icon as={icon} w={10} h={10} color={color} mb={4} />
       <Heading as="h3" size="md" mb={2} color={useColorModeValue('gray.700', 'white')}>
         {title}
       </Heading>
-      <Text color={useColorModeValue('gray.600', 'gray.300')}>{text}</Text>
+      <Text color={useColorModeValue('gray.600', 'gray.300')} flex="1">
+        {text}
+      </Text>
     </MotionBox>
   );
 };
@@ -77,6 +82,49 @@ const FeatureSection = () => {
               AestheticAxis provides you with cutting-edge tools to explore and define your unique aesthetic.
             </Text>
           </MotionBox>
+
+          {/* Explore Trending Aesthetics and Track Your Style Evolution */}
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} w="full">
+            {/* Explore Trending Aesthetics */}
+            <Box
+              bg={useColorModeValue('white', 'gray.800')}
+              p={8}
+              rounded="xl"
+              shadow="xl"
+              position="relative"
+              overflow="hidden"
+            >
+              <Flex align="center" mb={4}>
+                <Icon as={FaCompass} w={8} h={8} color="blue.500" mr={4} />
+                <Heading as="h3" size="lg">
+                  Explore Trending Aesthetics
+                </Heading>
+              </Flex>
+              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
+                Stay up-to-date with the latest style trends and discover new aesthetics that resonate with you.
+              </Text>
+            </Box>
+
+            {/* Track Your Style Evolution */}
+            <Box
+              bg={useColorModeValue('white', 'gray.800')}
+              p={8}
+              rounded="xl"
+              shadow="xl"
+              position="relative"
+              overflow="hidden"
+            >
+              <Flex align="center" mb={4}>
+                <Icon as={FaChartLine} w={8} h={8} color="green.500" mr={4} />
+                <Heading as="h3" size="lg">
+                  Track Your Style Evolution
+                </Heading>
+              </Flex>
+              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
+                Visualize how your style preferences change over time and gain insights into your aesthetic journey.
+              </Text>
+            </Box>
+          </SimpleGrid>
 
           {/* Create Your Style Profile */}
           <MotionBox
@@ -149,51 +197,6 @@ const FeatureSection = () => {
             </MotionFlex>
           </MotionBox>
 
-          {/* Explore Trending Aesthetics and New Section */}
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} w="full">
-            {/* Explore Trending Aesthetics */}
-            <Box
-              bg={useColorModeValue('white', 'gray.800')}
-              p={8}
-              rounded="xl"
-              shadow="xl"
-              position="relative"
-              overflow="hidden"
-            >
-              <Flex align="center" mb={4}>
-                <Icon as={FaCompass} w={8} h={8} color="blue.500" mr={4} />
-                <Heading as="h3" size="lg">
-                  Explore Trending Aesthetics
-                </Heading>
-              </Flex>
-              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Stay up-to-date with the latest style trends and discover new aesthetics that resonate with you.
-              </Text>
-              <Icon as={FaPalette} w={20} h={20} color="blue.500" mt={4} />
-            </Box>
-
-            {/* Track Your Style Evolution */}
-            <Box
-              bg={useColorModeValue('white', 'gray.800')}
-              p={8}
-              rounded="xl"
-              shadow="xl"
-              position="relative"
-              overflow="hidden"
-            >
-              <Flex align="center" mb={4}>
-                <Icon as={FaChartLine} w={8} h={8} color="green.500" mr={4} />
-                <Heading as="h3" size="lg">
-                  Track Your Style Evolution
-                </Heading>
-              </Flex>
-              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Visualize how your style preferences change over time and gain insights into your aesthetic journey.
-              </Text>
-              <Icon as={FaChartLine} w={20} h={20} color="green.500" mt={4} />
-            </Box>
-          </SimpleGrid>
-
           {/* Three Panels */}
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
             {[
@@ -216,7 +219,7 @@ const FeatureSection = () => {
                 text: "Receive tailored style suggestions powered by machine learning and trend forecasting."
               }
             ].map((feature, index) => (
-              <MotionBox key={index} variants={itemVariants}>
+              <MotionBox key={index} variants={itemVariants} height="100%">
                 <Feature {...feature} />
               </MotionBox>
             ))}
