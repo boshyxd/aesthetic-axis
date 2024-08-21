@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Heading, VStack, Button, Flex, Container, Spacer } from "@chakra-ui/react";
+import { Box, Heading, VStack, Button, Flex, Container, Spacer, Text } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuizQuestion from '../components/QuizQuestion';
 import ProgressBar from '../components/ProgressBar';
 import { quizQuestions } from '../data/quizQuestions';
 import Navbar from '../components/Navbar';
+import Particles from '../components/magicui/particles';
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
@@ -162,11 +163,16 @@ const Quiz = () => {
         </Box>
         <Container maxW="4xl" height="calc(100vh - 64px)" display="flex" flexDirection="column" position="relative" zIndex="1">
           <Spacer minHeight="22vh" />
-          <VStack spacing={12} align="flex">
+          <VStack spacing={2} align="center">
             <Heading as="h1" size="2xl" className="text-quaternary text-center" textAlign="center">
-              AestheticAxis Quiz
+              Ascend Your Aesthetic
             </Heading>
-            <ProgressBar current={answeredQuestions + 1} total={quizQuestions.length} />
+            <Text fontSize="lg" className="text-quaternary text-center" opacity={0.8} mb={4}>
+              Scale the peaks of style, build your unique vision
+            </Text>
+            <Box width="100%" mb={6}>
+              <ProgressBar current={answeredQuestions + 1} total={quizQuestions.length} />
+            </Box>
             <AnimatePresence mode="wait">
               <MotionBox
                 key={currentQuestion}

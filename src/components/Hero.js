@@ -3,8 +3,9 @@ import { Box, Heading, Text, Button, VStack, Container, Flex } from "@chakra-ui/
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import LetterPullup from "@/components/magicui/letter-pullup";
+import LetterPullup from "@/components/ui/letter-pullup";
 import { motion } from "framer-motion";
+import GridPattern from "@/components/magicui/grid-pattern";
 
 const MotionBox = motion(Box);
 
@@ -22,6 +23,17 @@ export default function Hero() {
       position="relative"
       overflow="hidden"
     >
+      {/* GridPattern background */}
+      <GridPattern
+        width={40}
+        height={40}
+        squares={[
+          [1, 1], [3, 3], [5, 5], [2, 8], [8, 2],
+          [10, 10], [12, 6], [6, 12], [15, 15]
+        ]}
+        className="absolute inset-0 h-full w-full opacity-30 [mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"
+      />
+
       {/* Background animated shapes */}
       <MotionBox
         position="absolute"
@@ -83,6 +95,7 @@ export default function Hero() {
               words="AestheticAxis" 
               delay={0.15}
               className="text-7xl sm:text-8xl md:text-9xl lg:text-10xl font-extrabold text-white tracking-tight"
+              style={{color: "white"}}
             />
           </MotionBox>
 

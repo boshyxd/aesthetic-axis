@@ -11,7 +11,7 @@ import Link from 'next/link';
 const Hero = dynamic(() => import('../components/Hero'), { ssr: true });
 
 // Use dynamic import for IconCloud, with loading fallback
-const IconCloud = dynamic(() => import('../components/magicui/icon-cloud'), { 
+const IconCloud = dynamic(() => import('../components/ui/icon-cloud'), { 
   ssr: true,
   loading: () => <div>Loading...</div>
 });
