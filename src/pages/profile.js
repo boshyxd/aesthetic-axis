@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, VStack, Heading, Text, Avatar, Container, Button, SimpleGrid, Skeleton, useToast, ScaleFade, SlideFade, Divider, Icon, Flex, Wrap, WrapItem, Badge } from "@chakra-ui/react";
+import { Box, VStack, Heading, Text, Avatar, Container, Button, SimpleGrid, Skeleton, useToast, ScaleFade, SlideFade, Divider, Icon, Flex, Wrap, WrapItem, Badge, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -17,6 +17,12 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const toast = useToast();
+
+  // Color mode values
+  const bgColor = useColorModeValue('light.bg', 'dark.bg');
+  const textColor = useColorModeValue('light.text', 'dark.text');
+  const cardBgColor = useColorModeValue('white', 'gray.700');
+  const cardBorderColor = useColorModeValue('gray.200', 'gray.600');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,12 +80,12 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <Box bg="green.700" minHeight="100vh" display="flex" flexDirection="column">
+      <Box bg={bgColor} minHeight="100vh" display="flex" flexDirection="column">
         <Navbar />
         <Container maxW="container.md" py={24} flex="1">
           <ScaleFade initialScale={0.9} in={true}>
-            <VStack spacing={8} align="stretch" bg="gray.800" p={55} borderRadius="xl" boxShadow="xl">
-              <Heading as="h1" size="2xl" className="text-white text-center">
+            <VStack spacing={8} align="stretch" bg={cardBgColor} p={55} borderRadius="xl" boxShadow="xl" borderColor={cardBorderColor} borderWidth="1px">
+              <Heading as="h1" size="2xl" color={textColor} className="text-center">
                 Please log in to view your profile
               </Heading>
               <Link href="/login" passHref>
@@ -96,21 +102,21 @@ const Profile = () => {
   }
   
   return (
-    <Box className="min-h-screen bg-green-700">
+    <Box className="min-h-screen" bg={bgColor}>
       <Navbar />
       <Container maxW="container.xl" py={16}>
         <VStack spacing={12} align="stretch">
           <Box height="8px" />
           <ScaleFade initialScale={0.9} in={true}>
-            <Box bg="white" p={8} borderRadius="xl" boxShadow="xl">
+            <Box bg={cardBgColor} p={8} borderRadius="xl" boxShadow="xl" borderColor={cardBorderColor} borderWidth="1px">
               <Flex direction={["column", "row"]} align="center" justify="space-between">
                 <VStack align={["center", "start"]} spacing={4}>
                   <Avatar size="2xl" name={user.displayName} src={user.photoURL} />
                   <VStack align={["center", "start"]} spacing={1}>
-                    <Heading as="h1" size="2xl" className="text-quaternary">
+                    <Heading as="h1" size="2xl" color={textColor}>
                       {user.displayName}
                     </Heading>
-                    <Text fontSize="lg" className="text-tertiary">{user.email}</Text>
+                    <Text fontSize="lg" color={textColor}>{user.email}</Text>
                   </VStack>
                 </VStack>
                 <VStack spacing={4} mt={[4, 0]}>
@@ -129,10 +135,10 @@ const Profile = () => {
           </ScaleFade>
 
           <SlideFade in={true} offsetY="20px">
-            <Box bg="white" p={8} borderRadius="xl" boxShadow="xl">
+            <Box bg={cardBgColor} p={8} borderRadius="xl" boxShadow="xl" borderColor={cardBorderColor} borderWidth="1px">
               <Flex align="center" mb={6}>
                 <Icon as={FaChartPie} w={8} h={8} color="blue.500" mr={4} />
-                <Heading as="h2" size="xl" className="text-quaternary">
+                <Heading as="h2" size="xl" color={textColor}>
                   Your Aesthetic Journey
                 </Heading>
               </Flex>
@@ -152,10 +158,17 @@ const Profile = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="bg-primary p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                        bg={useColorModeValue('gray.50', 'gray.800')}
+                        p={6}
+                        rounded="lg"
+                        shadow="md"
+                        borderColor={cardBorderColor}
+                        borderWidth="1px"
+                        _hover={{ shadow: "lg" }}
+                        transition="box-shadow 0.3s"
                       >
                         <Flex justify="space-between" align="center" mb={4}>
-                          <Text className="text-tertiary font-semibold">
+                          <Text color={textColor} fontWeight="semibold">
                             <Icon as={FaCalendarAlt} mr={2} />
                             {new Date(result.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
                           </Text>
@@ -166,7 +179,7 @@ const Profile = () => {
                     ))}
                   </SimpleGrid>
                 ) : (
-                  <Text fontSize="lg" className="text-tertiary text-center">No quiz results yet. Take a quiz to see your aesthetic profile!</Text>
+                  <Text fontSize="lg" color={textColor} textAlign="center">No quiz results yet. Take a quiz to see your aesthetic profile!</Text>
                 )
               )}
               <Flex justify="center" mt={8}>
@@ -176,7 +189,7 @@ const Profile = () => {
                     size="lg"
                     colorScheme="yellow"
                     leftIcon={<FaChartPie />}
-                    className="font-bold"
+                    fontWeight="bold"
                   >
                     Take Another Quiz
                   </Button>

@@ -9,6 +9,7 @@ import { FaEye, FaEyeSlash, FaGoogle, FaGithub } from 'react-icons/fa';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { useAuth } from '../hooks/useAuth';
+import { useRouter } from 'next/router';
 
 const MotionBox = motion(Box);
 
@@ -19,6 +20,7 @@ const Login = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const { user } = useAuth();
   const toast = useToast();
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
+      router.push('/profile'); // Redirect to profile page
     } catch (error) {
       toast({
         title: "Login failed",
@@ -61,6 +64,7 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
+      router.push('/profile'); // Redirect to profile page
     } catch (error) {
       toast({
         title: "Social login failed",
