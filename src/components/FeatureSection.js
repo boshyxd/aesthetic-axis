@@ -83,140 +83,26 @@ const FeatureSection = () => {
             </Text>
           </MotionBox>
 
-          {/* Explore Trending Aesthetics and Track Your Style Evolution */}
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} w="full">
-            {/* Explore Trending Aesthetics */}
-            <Box
-              bg={useColorModeValue('white', 'gray.800')}
-              p={8}
-              rounded="xl"
-              shadow="xl"
-              position="relative"
-              overflow="hidden"
-            >
-              <Flex align="center" mb={4}>
-                <Icon as={FaCompass} w={8} h={8} color="blue.500" mr={4} />
-                <Heading as="h3" size="lg">
-                  Explore Trending Aesthetics
-                </Heading>
-              </Flex>
-              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Stay up-to-date with the latest style trends and discover new aesthetics that resonate with you.
-              </Text>
-            </Box>
-
-            {/* Track Your Style Evolution */}
-            <Box
-              bg={useColorModeValue('white', 'gray.800')}
-              p={8}
-              rounded="xl"
-              shadow="xl"
-              position="relative"
-              overflow="hidden"
-            >
-              <Flex align="center" mb={4}>
-                <Icon as={FaChartLine} w={8} h={8} color="green.500" mr={4} />
-                <Heading as="h3" size="lg">
-                  Track Your Style Evolution
-                </Heading>
-              </Flex>
-              <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Visualize how your style preferences change over time and gain insights into your aesthetic journey.
-              </Text>
-            </Box>
-          </SimpleGrid>
-
-          {/* Create Your Style Profile */}
-          <MotionBox
-            w="full"
-            variants={itemVariants}
-            position="relative"
-          >
-            <MotionFlex
-              direction={{ base: 'column', md: 'row' }}
-              align="center"
-              justify="space-between"
-              w="full"
-              bg={useColorModeValue('white', 'gray.800')}
-              p={8}
-              rounded="xl"
-              shadow="xl"
-              position="relative"
-              overflow="hidden"
-            >
-              <MotionBox
-                position="absolute"
-                top="-5px"
-                left="-5px"
-                right="-5px"
-                bottom="-5px"
-                border="2px solid"
-                borderColor="purple.500"
-                borderRadius="xl"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2, repeat: Infinity }}
-                as={motion.div}
-              />
-              <Box flex={1} mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }}>
-                <Flex align="center" mb={4}>
-                  <Icon as={FaUserCircle} w={8} h={8} color="purple.500" mr={4} />
-                  <Heading as="h3" size="lg">
-                    Create Your Style Profile
-                  </Heading>
-                </Flex>
-                <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')} mb={4}>
-                  Sign up to save your quiz results, track your style evolution, and connect with like-minded individuals.
-                </Text>
-                <SimpleGrid columns={2} spacing={4} mb={8}>
-                  <Feature
-                    icon={FaSave}
-                    title="Save Results"
-                    color="purple.500"
-                    text="Keep track of your style journey over time."
-                  />
-                  <Feature
-                    icon={FaShareAlt}
-                    title="Share Your Style"
-                    color="purple.500"
-                    text="Show off your unique aesthetic to friends and followers."
-                  />
-                </SimpleGrid>
-                <MotionBox
-                  display="flex"
-                  justifyContent="center"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                >
-                  <Badge colorScheme="purple" fontSize="md" p={2} borderRadius="full" boxShadow="md">
-                    New Feature!
-                  </Badge>
-                </MotionBox>
-              </Box>
-            </MotionFlex>
-          </MotionBox>
-
-          {/* Three Panels */}
+          {/* Main Features */}
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} w="full">
             {[
               {
-                icon: FaClock,
-                title: "Quick and Engaging Quiz",
-                color: "teal.500",
-                text: "Our interactive quiz uses advanced algorithms to assess your style preferences efficiently."
+                icon: FaCompass,
+                title: "Explore Trending Aesthetics",
+                color: "blue.500",
+                text: "Stay up-to-date with the latest style trends and discover new aesthetics that resonate with you."
               },
               {
                 icon: FaChartLine,
-                title: "Detailed Style Analysis",
-                color: "purple.500",
-                text: "Get comprehensive insights into your aesthetic profile with our state-of-the-art analysis tools."
+                title: "Track Your Style Evolution",
+                color: "green.500",
+                text: "Visualize how your style preferences change over time and gain insights into your aesthetic journey."
               },
               {
-                icon: FaShieldAlt,
-                title: "Personalized Recommendations",
-                color: "pink.500",
-                text: "Receive tailored style suggestions powered by machine learning and trend forecasting."
+                icon: FaUserCircle,
+                title: "Create Your Style Profile",
+                color: "purple.500",
+                text: "Sign up to save your quiz results, track your style evolution, and connect with like-minded individuals."
               }
             ].map((feature, index) => (
               <MotionBox key={index} variants={itemVariants} height="100%">
@@ -225,7 +111,7 @@ const FeatureSection = () => {
             ))}
           </SimpleGrid>
 
-          {/* Two Panels */}
+          {/* Quick Quiz and Community Insights */}
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} w="full">
             <MotionBox
               bg={useColorModeValue('white', 'gray.800')}
@@ -234,12 +120,12 @@ const FeatureSection = () => {
               shadow="xl"
               variants={itemVariants}
             >
-              <Icon as={FaUsers} w={12} h={12} color="green.500" mb={4} />
+              <Icon as={FaClock} w={12} h={12} color="teal.500" mb={4} />
               <Heading as="h3" size="lg" mb={4}>
-                Community Insights
+                Quick and Engaging Quiz
               </Heading>
               <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Connect with like-minded individuals and share your style journey with our vibrant community.
+                Our interactive quiz uses advanced algorithms to assess your style preferences efficiently.
               </Text>
             </MotionBox>
             <MotionBox
@@ -249,12 +135,12 @@ const FeatureSection = () => {
               shadow="xl"
               variants={itemVariants}
             >
-              <Icon as={FaMobileAlt} w={12} h={12} color="orange.500" mb={4} />
+              <Icon as={FaUsers} w={12} h={12} color="orange.500" mb={4} />
               <Heading as="h3" size="lg" mb={4}>
-                Mobile-Friendly Experience
+                Community Insights
               </Heading>
               <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-                Access your style profile and recommendations on-the-go with our responsive mobile design.
+                Connect with like-minded individuals and share your style journey with our vibrant community.
               </Text>
             </MotionBox>
           </SimpleGrid>

@@ -73,27 +73,10 @@ export default function Home() {
           </Container>
         </Box>
 
-        <Box as="section" py={20} bg={bgColor} position="relative">
-          <Container maxW="6xl" centerContent position="relative" zIndex={2}>
-            <Box textAlign="center" mb={10}>
-              <ChakraLink as={Link} href="/quiz" passHref>
-                <Button
-                  as="a"
-                  size="lg"
-                  colorScheme="yellow"
-                  fontWeight="bold"
-                  _hover={{ transform: 'translateY(-2px)', boxShadow: 'lg' }}
-                  transition="all 0.3s ease"
-                >
-                  Start Your Style Journey
-                </Button>
-              </ChakraLink>
-            </Box>
-          </Container>
+        <Box pt={16} bg={bgColor}>
+          <Footer />
         </Box>
       </main>
-
-      <Footer />
     </>
   );
 }
