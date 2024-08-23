@@ -62,28 +62,42 @@ export default function Hero() {
         ))}
       </MotionBox>
 
-      <Container maxW="container.xl" centerContent position="relative" zIndex="1">
+      <Container 
+        maxW="container.xl" 
+        centerContent 
+        position="relative" 
+        zIndex="1"
+        pt="75px"
+      >
         <VStack spacing={8} align="center">
           <MotionBox
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
           >
             <Image
               src={`${router.basePath}/images/aesthetic-axis-logo.png`}
               alt="AestheticAxis Logo"
-              width={200}
-              height={200}
+              width={100}
+              height={100}
               quality={100}
             />
+            <LetterPullup 
+              words="AestheticAxis" 
+              delay={0.15}
+              fontSize="clamp(2.5rem, 6vw, 5rem)"
+              style={{
+                color: "white",
+                textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
+                lineHeight: "1",
+                fontWeight: "700",
+                marginLeft: "0.75rem"
+              }}
+            />
           </MotionBox>
-
-          <LetterPullup 
-            words="AestheticAxis" 
-            delay={0.15}
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight"
-            style={{color: "white"}}
-          />
 
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
@@ -91,16 +105,39 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <Text 
-              fontSize={["lg", "xl", "2xl"]} 
+              fontSize={["xl", "2xl", "3xl"]} 
               color="white" 
-              maxWidth="3xl" 
+              maxWidth="4xl" 
               textAlign="center"
               fontWeight="medium"
               letterSpacing="wide"
               textShadow="1px 1px 2px rgba(0,0,0,0.2)"
               mb={6}
             >
-              Discover your unique style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
+              Discover your{' '}
+              <span
+                style={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  zIndex: 1,
+                }}
+              >
+                <span
+                  style={{
+                    content: '""',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: '0.1em',
+                    height: '0.3em',
+                    backgroundColor: 'rgba(255, 255, 0, 0.4)',
+                    zIndex: -1,
+                    transform: 'rotate(-2deg)',
+                  }}
+                />
+                unique
+              </span>{' '}
+              style through our interactive quiz. Explore popular aesthetics and find where you fit on the style spectrum.
             </Text>
           </MotionBox>
 

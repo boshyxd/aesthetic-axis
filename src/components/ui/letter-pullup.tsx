@@ -7,6 +7,7 @@ interface LetterPullupProps {
   words: string;
   delay?: number;
   fontSize?: string;
+  style?: React.CSSProperties;
 }
 
 export default function LetterPullup({
@@ -14,6 +15,7 @@ export default function LetterPullup({
   words,
   delay,
   fontSize = "4rem",
+  style,
 }: LetterPullupProps) {
   const letters = words.split("");
 
@@ -29,7 +31,7 @@ export default function LetterPullup({
   };
 
   return (
-    <div className="flex flex-row justify-center" style={{ fontSize }}>
+    <div className="flex flex-row justify-center" style={{ fontSize, ...style }}>
       {letters.map((letter, i) => (
         <motion.span
           key={i}
